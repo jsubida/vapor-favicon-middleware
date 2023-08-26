@@ -11,7 +11,7 @@
 Via Swift Package Manager:
 
 ```swift
-.Package(url: "https://github.com/voronianski/vapor-favicon-middleware.git", majorVersion: 1)
+.Package(url: "https://github.com/jsubida/vapor-favicon-middleware.git", majorVersion: 1)
 ```
 
 ## Why?
@@ -27,15 +27,20 @@ Via Swift Package Manager:
 import Vapor
 import VaporFaviconMiddleware
 
-let drop = Droplet()
-
-// path to favicon image in workDir...
-let faviconPath = drop.workDir.appending("/Public/assets/favicon.png")
-drop.middleware.append(FaviconMiddleware(faviconPath))
-
-// ...or overwrite default cache-control max-age directive in ms (defaulting to 1 day)
-let maxAge = 1000 * 60 * 60 * 24 * 365 // 1 month
-drop.middleware.append(FaviconMiddleware(faviconPath, maxAge: maxAge))
+// configures your application
+public func configure(_ app: Application) throws {
+    // serve files from /Public folder
+    app.middleware.use(FileMiddleware(publicDirectory: app.directory.publicDirectory))
+    
+    app.http.server.configuration.port = 8081
+    
+    // favicon
+    let path = app.directory.publicDirectory.appending("/Public/assets/favicon.ico")
+    app.middleware.use(FaviconMiddleware(path))
+    
+    // register routes
+    try routes(app)
+}
 ```
 
 ---
