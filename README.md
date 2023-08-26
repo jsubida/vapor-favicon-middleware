@@ -11,7 +11,7 @@
 Via Swift Package Manager:
 
 ```swift
-.Package(url: "https://github.com/jsubida/vapor-favicon-middleware.git", majorVersion: 1)
+.package(url: "https://github.com/jsubida/vapor-favicon-middleware.git", from: "1.0.0"),
 ```
 
 ## Why?
