@@ -39,7 +39,7 @@ public final class FaviconMiddleware: Middleware {
             return request.eventLoop.makeSucceededFuture(resp)
         }
         
-        guard !FileManager.default.fileExists(atPath: iconPath) else {
+        guard FileManager.default.fileExists(atPath: iconPath) else {
             return next.respond(to: request)
         }
         

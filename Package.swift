@@ -2,9 +2,12 @@
 import PackageDescription
 
 let package = Package(
-  name: "VaporFaviconMiddleware",
+  name: "favicon-middleware",
   platforms: [
-     .macOS(.v12)
+    .macOS(.v12),
+  ],
+  products: [
+    .library(name: "FaviconMiddleware", targets: ["FaviconMiddleware"])
   ],
   dependencies: [
     // 💧 A server-side Swift web framework.
